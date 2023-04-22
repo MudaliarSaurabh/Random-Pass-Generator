@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Password Generator</title>
+  <style>
+    body {
+      background-color: #f2f2f2; /* set background color */
+      background-image: url('https://random-pass-generator.mudaliarsaurabh.repl.co/static/passphoto.jpg'); /* set background image */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    #password-generator-form {
+      margin: auto;
+      width: 50%;
+      padding: 20px;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: #f2f2f2;
+    }
+
+    #customer-support {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+  </style>
+  <script>
+    function generatePassword() {
+      var length = document.getElementById("password-length").value;
+      var includeSpecialChars = document.getElementById("special-characters").checked;
+      var includeUppercaseLetters = document.getElementById("uppercase-letters").checked;
+      var includeLowercaseLetters = document.getElementById("lowercase-letters").checked;
+      
+      var charSet = "";
+      if (includeSpecialChars) {
+        charSet += "!@#$%^&*()";
+      }
+      if (includeUppercaseLetters) {
+        charSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      }
+      if (includeLowercaseLetters) {
+        charSet += "abcdefghijklmnopqrstuvwxyz";
+      }
+      
+      var password = "";
+      for (var i = 0; i < length; i++) {
+        var randomIndex = Math.floor(Math.random() * charSet.length);
+        password += charSet[randomIndex];
+      }
+      
+      document.getElementById("password").innerHTML = password;
+    }
+
+    function toggleCustomerSupportForm() {
+      var customerSupportForm = document.getElementById("customer-support-form");
+      if (customerSupportForm.style.display === "none") {
+        customerSupportForm.style.display = "block";
+      } else {
+        customerSupportForm.style.display = "none";
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="password-generator-container">
+    <form id="password-generator-form">
+      <label for="password-length" style="font-weight: bold;">Password Length:</label>
+      <input type="number" id="password-length" name="password-length" min="8" max="64" value="12" required style="margin-left: 10px;">
+      <br><br>
+
+      <label for="special-characters" style="font-weight: bold;">Include Special Characters:</label>
+      <input type="checkbox" id="special-characters" name="special-characters" style="margin-left: 10px;">
+      <br><br>
+
+      <label for="uppercase-letters" style="font-weight: bold;">Include Uppercase Letters:</label>
+      <input type="checkbox" id="uppercase-letters" name="uppercase-letters" style="margin-left: 10px;">
+      <br><br>
+
+      <label for="lowercase-letters" style="font-weight: bold;">Include Lowercase Letters:</label>
+      <input type="checkbox" id="lowercase-letters" name="lowercase-letters" checked style="margin-left: 10px;">
+      <br><br>
+
+      <button type="button" id="generate-password-button" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="generatePassword()">Generate Password</button>
+      <br><br>
+
+      <label for="password" style="font-weight: bold;">Generated Password:</label>
+      <span id="password"></span>
+    </form>
+
+    <div id="customer-support">
